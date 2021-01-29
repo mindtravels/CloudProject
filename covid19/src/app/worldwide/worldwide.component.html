@@ -1,0 +1,127 @@
+<div class="text-center">
+        <p style="font-size:50px"><img src="https://firebasestorage.googleapis.com/v0/b/covid19-7ce01.appspot.com/o/virus.png?alt=media&token=725d42f1-7dd7-41bb-9162-c0311e44dd32" width="50px">COVID-19</p>        
+</div>  
+
+<p class="text-center" style="font-size:30px; color:dimgrey">Live Updates and Statistics</p>
+
+<p style="font-size:20px; background-color:rgb(242, 248, 248);">Corona Virus Summary Worldwide</p>
+
+<div class= "my-3">
+    <table class = "table table-bordered table-striped">
+        <tr class ="table-warning">
+            <td> Total Cases </td>
+            <td> {{summaryData?.Global?.TotalConfirmed | number}} </td>
+        </tr>
+        <tr class ="table-warning">
+            <td> New Cases </td>
+            <td> {{summaryData?.Global?.NewConfirmed | number}} </td>
+        </tr>
+        <tr class ="table-warning">
+            <td> Active Cases</td>
+            <td> {{summaryData?.Global?.TotalConfirmed - summaryData?.Global?.TotalRecovered - summaryData?.Global?.TotalDeaths | number}}</td>
+        </tr>
+        <tr class="table-primary">
+            <td> Total Recovered </td>
+            <td> {{summaryData?.Global?.TotalRecovered | number}} </td>
+        </tr>
+        <tr class="table-primary">
+            <td> New Recovered </td>
+            <td> {{summaryData?.Global?.NewRecovered | number}}</td>
+        </tr>
+        <tr class="table-primary">
+            <td> Recovery Rate</td>
+            <td> {{summaryData?.Global?.TotalRecovered/  summaryData?.Global?.TotalConfirmed | number}} </td>
+        </tr>
+        <tr class="table-danger">
+            <td> Total Deaths </td>
+            <td> {{summaryData?.Global?.TotalDeaths | number}} </td>
+        </tr>
+        <tr class="table-danger"> 
+            <td> New Deaths </td>
+            <td> {{summaryData?.Global?.NewDeaths | number}} </td>
+        </tr>
+        <tr class="table-danger">
+            <td> Death Rate</td>
+            <td> {{summaryData?.Global?.TotalDeaths/ summaryData?.Global?.TotalConfirmed | number}}</td>
+        </tr>
+    </table>
+</div>
+
+<p style="font-size:20px; background-color:rgb(242, 248, 248); margin-top: 50px;">Corona Virus Cases Distribution Worldwide</p>
+
+<div class= "chart-wrapper"  *ngIf = "pieChartReady">
+    <canvas baseChart
+        [data] = "pieChartData"
+        [labels] = "pieChartLabels" 
+        [chartType] = "pieChartType"
+        [options] = "pieChartOptions"
+        [plugins] = "pieChartPlugins"
+        [legend] = "pieChartLegend">
+    </canvas>
+</div>
+
+<p style="font-size:20px; background-color:rgb(242, 248, 248); margin-top: 50px;">Daily Corona Virus Cases Worldwide</p>
+
+<div class="chart-wrapper" *ngIf = "barChartReady">
+    <canvas baseChart
+        [datasets] = "barChartData"
+        [labels] = "barChartLabels"
+        [chartType] = "barChartType"
+        [options] = "barChartOptions"
+        [plugins] = "barChartPlugins"
+        [legend] = "barChartLegend">
+    </canvas>
+</div>
+
+<p style="font-size:20px; background-color:rgb(242, 248, 248); margin-top: 50px;">Total Corona Virus Cases Worldwide</p>
+<div class="chart-wrapper" *ngIf="lineChartReady">
+    <canvas baseChart 
+        [datasets]="lineChartData" 
+        [labels]="lineChartLabels" 
+        [options]="lineChartOptions"
+        [colors]="lineChartColors" 
+        [legend]="lineChartLegend" 
+        [chartType]="lineChartType" 
+        [plugins]="lineChartPlugins">
+    </canvas>
+</div>
+
+
+
+<p style="font-size:20px; background-color:rgb(242, 248, 248); margin-top: 50px;">Corona Virus Cases by Country</p>
+
+<div class = "my-3">
+    <table class = "table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th class="table-secondary">Country</th>
+                <th class="table-warning">New Cases</th>
+                <th class="table-warning">Total Cases</th>
+                <th class="table-primary">New Recoveries</th>
+                <th class="table-primary">Total Recoveries</th>
+                <th class="table-danger">New Death</th>
+                <th class="table-danger">Total Death</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of countryData">
+                <td class="table-secondary"
+                [routerLink]= "['/country', country.Slug]"> {{country.Country}}</td>
+                <td class="table-warning"> {{country.NewConfirmed | number}}</td>
+                <td class="table-warning"> {{country.TotalConfirmed | number}}</td>
+                <td class="table-primary"> {{country.NewRecovered | number}}</td>
+                <td class="table-primary"> {{country.TotalRecovered | number}}</td>
+                <td class="table-danger"> {{country.NewDeaths | number}}</td>
+                <td class="table-danger"> {{country.TotalDeaths | number}}</td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<footer class="text-center" style="font-size:20px; background-color:rgb(242, 248, 248); margin-top: 50px">
+    <p>Data Source: <a href="https://covid19api.com/">COVID-19 API/ Johns Hopkins CSSE</a></p>
+</footer>
+
+
+        

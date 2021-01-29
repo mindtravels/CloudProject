@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../Covid-19"
+		},
+		{
+			"path": "../../../.."
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}
